@@ -2,6 +2,7 @@
 using Net6ImpersonationDemo.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,14 @@ internal class App
       {
         // User action  
         Console.WriteLine("During impersonation: " + id.Name);
+
+        ///file:///C:/Temp/SRS%20Sample.html
+        FileInfo src = new FileInfo(@"C:/Temp/Sample.html");
+        FileInfo tgt = new FileInfo(@"\\192.168.0.199\d$\SHARE\Sample.html");
+
+        src.CopyTo(tgt.FullName, true);
+
+        //\\192.168.0.67\d$
       });
 
       // Check the identity again.  

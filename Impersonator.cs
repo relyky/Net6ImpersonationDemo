@@ -30,6 +30,7 @@ internal sealed class Impersonator : IDisposable
   //This parameter causes LogonUser to create a primary token.   
   const int LOGON32_LOGON_INTERACTIVE = 2;
   const int LOGON32_PROVIDER_DEFAULT = 0;
+  const int LOGON32_LOGON_NEW_CREDENTIALS = 9;
 
   SafeAccessTokenHandle _safeAccessTokenHandle = null;
 
@@ -40,7 +41,7 @@ internal sealed class Impersonator : IDisposable
   {
     // Call LogonUser to obtain a handle to an access token.   
     if (!LogonUser(userName, domainName, mima,
-        LOGON32_LOGON_INTERACTIVE,
+        LOGON32_LOGON_NEW_CREDENTIALS,
         LOGON32_PROVIDER_DEFAULT,
         out _safeAccessTokenHandle))
     {
@@ -53,7 +54,7 @@ internal sealed class Impersonator : IDisposable
   /// 執行Action
   /// </summary>
   public void RunImpersonated(Action<WindowsIdentity> action) =>
-    WindowsIdentity.RunImpersonated(_safeAccessTokenHandle, () => action.Invoke(WindowsIdentity.GetCurrent()));
+    WindowsIdentity.RunImpersonated(_safeAccessTokenHandle, () => action.Invoke(WindowsIdentity.GetCurrent(true)));
 
   void IDisposable.Dispose()
   {
