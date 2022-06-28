@@ -14,7 +14,7 @@ namespace Net6ImpersonationDemo;
 /// 參考文件2：[切換身分Impersonation](https://ithelp.ithome.com.tw/articles/10252658)
 /// </remarks>
 /// <example>
-/// using var imuser = new Impersonator("domain", "userName", "password");
+/// using var imuser = new Impersonator("userName", "domain", "password");
 /// imuser.RunImpersonated(user =>
 /// {
 ///   // User action  
@@ -64,7 +64,7 @@ internal sealed class Impersonator : IDisposable
   /// 或直接切換身份並執行Action。
   /// </summary>
   /// <example>
-  /// Impersonator.RunImpersonated("domain", "userName", "password", id =>
+  /// Impersonator.RunImpersonated("userName", "domain", "password", id =>
   /// {
   ///   // User action  
   ///   Console.WriteLine("During impersonation: " + user.Name);

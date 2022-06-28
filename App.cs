@@ -26,10 +26,10 @@ internal class App
       // Check the identity.  
       Console.WriteLine("Before impersonation: " + System.Security.Principal.WindowsIdentity.GetCurrent().Name);
 
-      Impersonator.RunImpersonated("domain", "userName", "password", id =>
+      Impersonator.RunImpersonated("userName", "domain", "password", id =>
       {
         // User action  
-        Console.WriteLine("During Good impersonation: " + id.Name);
+        Console.WriteLine("During impersonation: " + id.Name);
       });
 
       // Check the identity again.  
